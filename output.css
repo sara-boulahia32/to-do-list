@@ -592,6 +592,10 @@ video {
   pointer-events: none;
 }
 
+.visible {
+  visibility: visible;
+}
+
 .absolute {
   position: absolute;
 }
@@ -605,8 +609,16 @@ video {
   bottom: 0px;
 }
 
+.left-\[100px\] {
+  left: 100px;
+}
+
 .right-3 {
   right: 0.75rem;
+}
+
+.top-\[100px\] {
+  top: 100px;
 }
 
 .my-\[50px\] {
@@ -638,12 +650,12 @@ video {
   margin-bottom: 1.25rem;
 }
 
-.mt-1 {
-  margin-top: 0.25rem;
+.mb-6 {
+  margin-bottom: 1.5rem;
 }
 
-.mt-\[00px\] {
-  margin-top: 00px;
+.mt-1 {
+  margin-top: 0.25rem;
 }
 
 .block {
@@ -707,14 +719,6 @@ video {
   width: 100%;
 }
 
-.w-\[8px\] {
-  width: 8px;
-}
-
-.w-\[80px\] {
-  width: 80px;
-}
-
 .transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
@@ -749,6 +753,10 @@ video {
 
 .gap-\[50px\] {
   gap: 50px;
+}
+
+.self-end {
+  align-self: flex-end;
 }
 
 .rounded {
@@ -796,6 +804,11 @@ video {
   border-color: rgb(200 105 194 / var(--tw-border-opacity));
 }
 
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+}
+
 .bg-customBrown {
   --tw-bg-opacity: 1;
   background-color: rgb(207 192 153 / var(--tw-bg-opacity));
@@ -806,24 +819,9 @@ video {
   background-color: rgb(230 230 220 / var(--tw-bg-opacity));
 }
 
-.bg-green-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(34 197 94 / var(--tw-bg-opacity));
-}
-
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
-.bg-black {
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
-}
-
-.bg-green-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(22 163 74 / var(--tw-bg-opacity));
 }
 
 .p-8 {
@@ -877,14 +875,19 @@ video {
   text-align: center;
 }
 
+.text-6xl {
+  font-size: 3.75rem;
+  line-height: 1;
+}
+
+.text-8xl {
+  font-size: 6rem;
+  line-height: 1;
+}
+
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
-}
-
-.text-sm {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
 }
 
 .text-xs {
@@ -894,10 +897,6 @@ video {
 
 .font-bold {
   font-weight: 700;
-}
-
-.font-medium {
-  font-weight: 500;
 }
 
 .uppercase {
@@ -963,9 +962,9 @@ video {
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
 }
 
-.hover\:bg-green-600:hover {
+.hover\:bg-white:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(22 163 74 / var(--tw-bg-opacity));
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
 .focus\:outline-none:focus {

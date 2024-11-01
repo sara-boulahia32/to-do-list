@@ -25,8 +25,8 @@
             overflow-x: hidden;
         }
         .task {
-            border-radius: .35rem;
-            border: 1px solid;
+            border-radius: .5rem;
+            border: 1px solid #CFC099;
             border-left-width: 7.5px;
             padding: .75rem 1rem;
             margin-bottom: 1.3rem;
@@ -35,6 +35,15 @@
                 color: rgba(0, 0, 0, .7);
                 word-break: break-all;
             }
+        }
+        .border-red {
+            border-left-color: red; /* P1 */
+        }
+        .border-orange {
+            border-left-color: orange; /* P2 */
+        }
+        .border-green {
+            border-left-color: green; /* P3 */
         }
         .w-fit {
             width: fit-content;
@@ -50,8 +59,47 @@
 </head>
 
 <body class="relative bg-customCream px-[100px]">
-    <section >
-        <form id="createTaskPopup" class="absolute w-[400px] flex flex-col bg-customBrown p-8 rounded-3xl mt-[300px] hidden ">
+
+    <section class="picture-cover"></section>
+    <section class=" my-[50px]">
+        <div class="flex justify-between mb-10">
+            <div class="relative">
+                <div id="searchBar" class="col-8">
+                    <input type="text" placeholder="Search task.."
+                    class="border border-customGray shadow-lg rounded-3xl py-2 pl-2 h-12 focus:outline-none focus:ring-2 focus:ring-customBrown">
+                </div>
+                <div class="absolute inset-y-0 right-3 pl-3 flex items-center pointer-events-none">
+                    <svg class="h-5 w-5 text-gray-400" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </div>
+            </div>
+            <button id="openAjoute" class="bg-customBrown hover:scale-110 font-bold rounded-3xl w-[40px] h-[40px] ">+</button>
+        </div>
+
+        <div class="grid grid-cols-3 gap-[50px]">
+            <div>
+                <h2 class="text-6xl font-bold text-customBlue mb-1">To do | <span id="todo-count">0</span></h2>
+                <hr class="border-customBlue mb-6">
+                <div id="todo-tasks">
+                    </div>
+            </div>
+            <div>
+                <h2 class="text-lg font-bold text-customGreen mb-1">In progress | <span id="inprogress-count">0</span></h2>
+                <hr class="border-customGreen mb-5">
+                <div id="inprogress-tasks">
+                    </div>
+            </div>
+            <div>
+                <h2 class="text-lg font-bold text-customPink mb-1">Done | <span id="done-count">0</span></h2>
+                <hr class="border-customPink mb-5">
+                <div id="done-tasks">
+                    </div>
+            </div>
+        </div>
+    </section>
+    <form id="createTaskPopup" class="absolute top-[100px] left-[100px] w-[400px] flex flex-col bg-customBrown p-8 rounded-3xl hidden ">
             <div id="closeIcon" class="flex justify-end">
                 <span role="button" class="font-bold cursor-pointer">x</span>
             </div>
@@ -68,24 +116,10 @@
                 <textarea id="description" rows="3"
                     class="w-full border border-customGray shadow-lg rounded-3xl py-2 pl-2 h-[100px] focus:outline-none focus:ring-2 focus:ring-black"></textarea>
             </div>
-            
-            <div class="mb-3">
-                <div class="flex gap-4">
-                    <div id="start-date-menu" class="relative">
-                        <button class="w-[110px] bg-white border border-black rounded-xl px-2 py-1">
-                            Start Date
-                        </button>
-                        <div class="hidden absolute mt-1 w-full bg-white border rounded-lg shadow-lg">
-                        </div>
-                    </div>
-                    <div id="due-date-menu" class="relative">
-                        <button class="w-[110px] bg-white border border-black rounded-xl px-2 py-1">
-                            Due Date
-                        </button>
-                        <div class="hidden absolute mt-1 w-full bg-white border rounded-lg shadow-lg">
-                        </div>
-                    </div>
-                </div>
+            <div class="mb-4">
+                <label for="title">Date:</label>
+                <input type="date" name="title" id="date" 
+                    class="w-full border border-customGray shadow-lg rounded-3xl py-2 pl-2 h-12 focus:outline-none focus:ring-2 focus:ring-black">    
             </div>
 
             <div class="mb-4">
@@ -113,55 +147,14 @@
                 </div>
             </div>
 
-            <button class="w-fit px-3 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">Save</button>
+            <button class="self-end w-fit px-3 py-2 bg-black text-white rounded-lg hover:bg-white">Save</button>
         </form>
-    </section>
-
-    <section class="picture-cover"></section>
-    <section class=" my-[50px]">
-        <div class="flex justify-between mb-10">
-            <div class="relative">
-                <div class="col-8">
-                    <input type="text" placeholder="Search task.."
-                    class="border border-customGray shadow-lg rounded-3xl py-2 pl-2 h-12 focus:outline-none focus:ring-2 focus:ring-customBrown">
-                </div>
-                <div class="absolute inset-y-0 right-3 pl-3 flex items-center pointer-events-none">
-                    <svg class="h-5 w-5 text-gray-400" fill="none" stroke-linecap="round" stroke-linejoin="round"
-                        stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                        <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                    </svg>
-                </div>
-            </div>
-            <button id="openAjoute" class="bg-customBrown hover:scale-110 font-bold rounded-3xl w-[40px] h-[40px] ">+</button>
-        </div>
-
-        <div class="grid grid-cols-3 gap-[50px]">
-            <div>
-                <h2 class="text-lg font-medium text-customBlue mb-1">To do | <span id="todo-count">0</span></h2>
-                <hr class="border-customBlue mb-5">
-                <div id="todo-tasks">
-                    </div>
-            </div>
-            <div>
-                <h2 class="text-lg font-medium text-customGreen mb-1">In progress | <span id="inprogress-count">0</span></h2>
-                <hr class="border-customGreen mb-5">
-                <div id="inprogress-tasks">
-                    </div>
-            </div>
-            <div>
-                <h2 class="text-lg font-medium text-customPink mb-1">Done | <span id="done-count">0</span></h2>
-                <hr class="border-customPink mb-5">
-                <div id="done-tasks">
-                    </div>
-            </div>
-        </div>
-    </section>
+    
 <script>
     // DOM Elements
 
     
     const createTaskPopup = document.getElementById('createTaskPopup');
-    const addTaskButton = document.querySelector('.bg-customBrown');
     const closeButton = document.querySelector('#closeIcon span');
     const form = document.querySelector('form');
     const alert = document.getElementById('alert');
@@ -187,19 +180,21 @@
         form.reset();
         alert.classList.add('hidden');
     });
-    
-    // Handle dropdown menus
+
+    // Handle dropdown menus priorité et status 
     const dropdowns = ['priority-menu', 'state-menu'];
     dropdowns.forEach(id => {
         const menu = document.getElementById(id);
         const button = menu.querySelector('button');
         const options = menu.querySelector('div');
-    
+
+        // selects all buttons inside the options div
         button.addEventListener('click', (e) => {
             e.preventDefault();
             options.classList.toggle('hidden');
         });
-    
+
+        //  loop through each option+ prevent default action update the text content to selected option +hide dropdown options again by adding hidden class 
         options.querySelectorAll('button').forEach(option => {
             option.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -209,66 +204,71 @@
         });
     });
     
-    // Form submission
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
+    // Form submission 
+    form.addEventListener('submit', (e) => {// listens for submit event, when the form is submitted, if input fields r valid, calls function to create new task 
+        e.preventDefault();// prevent page relod 
+        // retrieve form values 
         const title = document.getElementById('title').value;
         const description = document.getElementById('description').value;
         const priority = document.querySelector('#priority-menu button').textContent;
+        const date=document.getElementById('date');
         const state = document.querySelector('#state-menu button').textContent;
-        
+        // check if empty 
         if (!title || !description || priority === 'Priority' || state === 'State') {
-            alert.classList.remove('hidden');
+            alert.classList.remove('hidden'); // alert is visible by removing the hidden class 
             return;
         }
-    
-        createTask(title, description, priority, state);
-        createTaskPopup.classList.add('hidden');
+        // if all validated call function create task passing these arguments
+        createTask(title,date, description, priority, state);
+        // createTaskPopup.classList.add('hidden');
         form.reset();
-        alert.classList.add('hidden');
+        alert.classList.add('hidden');// alert is hidden now 
     });
     
+    // function for creating a new task 4 arguments/parameters
+    // create a new html element and popuolates it with the provided data 
     function createTask(title, description, priority, state) {
+        // create the task element  
         const task = document.createElement('div');
-        task.className = 'task';
+        task.className = 'task';// for styling 
         
         // Set border color based on priority
         const borderColor = {
             'P1': 'border-red',
             'P2': 'border-orange',
             'P3': 'border-green'
-        }[priority];
+        }[priority];// an object to define each priority class to css styling 
         
         task.classList.add(borderColor);
     
         task.innerHTML = `
             <h3 class="font-bold mb-2">${title}</h3>
-            <h6 class="text-sm mb-3">${description}</h6>
+            <h6 class="text-8xl mb-3">${description}</h6>
             <div class="flex justify-between items-center">
-                <span class="text-xs">${priority}</span>
+                <span class="font-bold mb-2">${priority}</span>
                 <select class="text-xs border rounded px-1">
-                    <option ${state === 'To Do' ? 'selected' : ''}>To Do</option>
+                    <option ${state === 'To Do' ? 'selected' : ''}>To Do</option> // selected attribute if state to do is assigned 
                     <option ${state === 'Doing' ? 'selected' : ''}>Doing</option>
                     <option ${state === 'Completed' ? 'selected' : ''}>Completed</option>
                 </select>
             </div>
         `;
     
-        // Add task to appropriate container
+        // Add task to status+update the corresponding status's count
         const container = {
-            'To Do': todoTasks,
+            'To Do': todoTasks,// correspondre le task à l'ecriture affihé 
             'Doing': inprogressTasks,
             'Completed': doneTasks
-        }[state];
-    
+        }[state];// accesses the value associated with the current task 
+        
+        // add below the appropriate task
         container.appendChild(task);
-        updateCounts();
+        updateCounts(); // add count 
     
-        // Handle state changes
-        const select = task.querySelector('select');
-        select.addEventListener('change', () => {
-            const newContainer = {
+        // lists to changes and handles them by moving tasks to their corresponding status
+        const select = task.querySelector('select');// select drop down menu 
+        select.addEventListener('change', () => {// event chenge triggered when the user selects a different option from the dropdown 
+            const newContainer = {// similar to last one 
                 'To Do': todoTasks,
                 'Doing': inprogressTasks,
                 'Completed': doneTasks
@@ -280,12 +280,12 @@
     }
     
     function updateCounts() {
-        todoCount.textContent = todoTasks.children.length;
-        inprogressCount.textContent = inprogressTasks.children.length;
-        doneCount.textContent = doneTasks.children.length;
+        todoCount.textContent = todoTasks.children.length;// accesses all tasks marked as to do and retrieves the number of child elemnts and displays them
+        inprogressCount.textContent = inprogressTasks.children.length;// counting tasks in progress 
+        doneCount.textContent = doneTasks.children.length;// similar 
     }
     
-    // Search functionality
+    // Search input changes in a search field 
     const searchInput = document.querySelector('input[type="text"]');
     searchInput.addEventListener('input', () => {
         const searchTerm = searchInput.value.toLowerCase();
@@ -301,7 +301,24 @@
                 task.style.display = 'none';
             }
         });
-    });</script>
+    });
+    const searchFound = document.getElementById('searchBar');
+    searchFound.addEventListener('input', () => {
+        const searchTerm = searchFound.value.toLowerCase();
+        const tasks = document.querySelectorAll('.task');
+    
+        tasks.forEach(task => {
+            const title = task.querySelector('h3').textContent.toLowerCase();
+            const description = task.querySelector('h6').textContent.toLowerCase();
+            
+            if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                task.style.display = '';
+            } else {
+                task.style.display = 'none';
+            }
+        });
+    });
+    </script>
     
 </body>
 

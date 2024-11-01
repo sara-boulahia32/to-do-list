@@ -5,7 +5,7 @@
   "name": "tailwind-tuts",
   "version": "1.0.0",
   "main": "tailwind.config.js",
-  "scripts": {"build:css": "tailwindcss -i ./global.css -o ./output.css --watch"},
+  "scripts": {"build-css": "tailwindcss -i ./global.css -o ./output.css --watch"},
   "dependencies": {
     "ansi-regex": "^6.1.0",
     "ansi-styles": "^6.2.1",

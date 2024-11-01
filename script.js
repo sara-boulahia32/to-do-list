@@ -1,94 +1,99 @@
-let addSingleTaskBtn = document.getElementById("add-task");
-let addMultipleTasksBtn = document.getElementById("add-multiple-tasks");
-let searchInput = document.getElementById("search");
+// manage form bar 
+const createTaskPopup=document.getElementById("createTaskPopup");
+const form=document.querySelector("form");
+const alert=document.getElementById("alert");
 
-let formPopup = document.getElementById("create-task-popup");
+const todoTasks=document.getElementById('todoTasks');
+const inprogressTasks=document.getElementById('inprogress-tasks');
+const doneTasks=document.getElementById('done-tasks');
 
-updateListsTasksCount();
+    // ouvrir
+    const openAjoute=document.getElementById("openAjoute").addEventListener('click', ()=>{
+        createTaskPopup.classList.remove('hidden');
+    })
 
-addSingleTaskBtn.addEventListener("click", () => openAndClosePopup(false))
-addMultipleTasksBtn.addEventListener("click", () => openAndClosePopup(true))
+    // fermer
+    const closebutton=document.getElementById("closeIcon").addEventListener('click', ()=>{
+        createTaskPopup.classList.add('hidden');
+        form.reset();
+        alert.classList.add('hidden');
+    })
 
-searchInput.onkeyup = function () {
-    showOnlyfilteredTasks(); // Show only tasks that match the current filter search
-    updateListsTasksCount(); // Update the lists tasks count based on the new filter
-}
+// selection de statut et priorité 
+const dropdowns=[priority-menu, state-menu];
+    dropdowns.forEach(id=>{
+        const menu=document.getElementById('id');
+        const options=menu.querySelector('div');
+        const button=menu.querySelector('button');
+        button.addEventListener('click', (e)=>{
+            e.preventDefault();
+            options.classList.toggle('hidden');
+        });
+        options.querySelectorAll('button').forEach(option=>{
+            option.addEventListener('click', (e)=>{
+                e.preventDefault();
+                button.textContent=option.textContent;
+                options.classList.add('hidden');
+            });
+        });
+    });
 
-
-function openAndClosePopup (isMultiple) {
-    formPopup.classList.remove("hidden");
-    if (isMultiple) {
-        formPopup.setAttribute("multiple", true);
-    }
-
-    formPopup.addEventListener("click", function(event) {
-        let closeBtn = document.querySelector("#closeIcon span");
-
-        if (event.target == formPopup || event.target == closeBtn) {
-            formPopup.classList.add("hidden");
-            document.getElementById("alert").classList.add("hidden");
-            if (isMultiple) {
-                formPopup.removeAttribute("multiple");
-            }
-        }
-    }, { once: true });
-}
-
-function createTask(data) {
-    let colors = {
-        P1: "red-500",
-        P2: "gray-500",
-        P3: "blue-500",
-    };
-    
-    let taskId = `task-${Date.now()}`
-    let task = `<div
-                    id="${taskId}"
-                    data-start-date="${data.startDate}"
-                    data-due-date="${data.dueDate}"
-                    data-priority="${data.priority}"
-                    data-state="${data.state}"
-                    data-description="${data.description}"
-                    class="task border-${colors[data.priority]}"
-                >
-                    <h6 class="font-light mb-3">${data.title}</h6>
-                    <div class="labels">
-                        <button class="delete-btn bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded">Delete</button>
-                        <button class="bg-yellow-500 hover:bg-yellow-600 text-white px-2 py-1 rounded">Edit</button>
-                    </div>
-                </div>`
-
-    let listOfTasks = document.querySelectorAll(".list")[data.state].querySelector(".tasks");
-
-    listOfTasks.insertAdjacentHTML("beforeend", task);
-    showOnlyfilteredTasks();
-    updateListsTasksCount();
-
-    listOfTasks.querySelector(`#${taskId} .delete-btn`).addEventListener("click", () => deleteTask(taskId));
-}
-
-function deleteTask(taskId) {
-    document.getElementById(taskId).remove();
-    updateListsTasksCount(); // Update the task count after deltete
-}
-
-function showOnlyfilteredTasks() {
-    document.querySelectorAll(".task").forEach(function(task) {
-        let title = task.querySelector("h6").textContent;
-
-        if (title.search(searchInput.value) == -1) {
-            task.classList.add("hidden");
+// form submission 
+    form.addEventListener("submit", (e)=>{
+        e.preventDefault();
+        const title=document.getElementById('title').value;
+        const description=document.getElementById('description').value;
+        const date=document.getElementById('date').value;// check this!
+        const priority=document.querySelector(#priority-menu button);
+        const state=document.querySelector(#state-menu button);
+        if(!title || !description || priority==='Priority' || state==='State'){
+            alert.classList.remove('hidden');
             return;
         }
-        task.classList.remove("hidden");
-    })
-}
+        createTaskPopup(title, date, description, priority, state);
+        form.reset();
+        alert.classList.add('hidden');
+    });
 
-function updateListsTasksCount () {
-    document.querySelectorAll(".list").forEach( function (list) {
-        let spanCount = list.querySelector(".count");
-        spanCount.textContent = Array.from(list.querySelectorAll(".tasks .task"))
-                                    .filter(task => !task.classList.contains("hidden"))
-                                    .length;
-    })
+// createTask 
+function createTask(title, description, date, state, priority){
+    const task=document.createElement('div');
+        task.className='task';
+        const borderColor={
+            'P1': 'border-red',
+            'P2': 'border-orange',
+            'P3': 'border-green',
+        }[priority];
+    task.classList.add(borderColor);
+        task.innerHTML=`
+        <h3 class="font-bold mb-2">${title}</h3>
+        <h6 class="text-8xl mb-3">${description}</h6>
+        <div class="flex justidy-between items-center">
+            <span class="font-bold mb-2">${priority}</span>
+            <select class="text-xs border-rounded px-1">
+                <option ${state==='To Do'? 'selected' : ''}>To Do</option>
+                <option ${state==='Doing'? 'selected' : ''}>Doing</option>
+                <option ${state==='Completed'? 'selected' : ''}>Completed</option>
+            </select>
+        </div>
+        `;
+    const container={
+        'To Do':todoTasks,
+        'Doing':inprogressTasks,
+        'Completed':doneTasks
+    }[state];
+    const select=task.querySelector('select').addEventListener('change', ()=>{
+        const newContainer={
+            'To Do':todoTasks,
+            'Doing':inprogressTasks,
+            'Completed':doneTasks
+        }[state.value];
+        newContainer.appendChild(task);
+        updateCounts();
+    });
+}
+function updateCounts(){
+    todoCount.textContent=todoTasks.children.length;
+    inprogressCount.textContent=inprogressTasks.children.length;
+    doneCount.textContent=doneTasks.children.length;
 }
