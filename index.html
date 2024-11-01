@@ -53,8 +53,15 @@
             position: relative;
             min-height: 100vh;
         }
-        
-
+        .left-20vw {
+            left: 37vw;
+        }
+        .top-40vw {
+            top: 10vw;
+        }
+        .letterspacing{
+            letter-spacing: 1px;
+        }
     </style>
 </head>
 
@@ -66,66 +73,67 @@
             <div class="relative">
                 <div id="searchBar" class="col-8">
                     <input type="text" placeholder="Search task.."
-                    class="border border-customGray shadow-lg rounded-3xl py-2 pl-2 h-12 focus:outline-none focus:ring-2 focus:ring-customBrown">
+                    class="border border-customGray shadow-lg rounded-3xl py-2 pl-2 h-16 focus:outline-none focus:ring-2 focus:ring-customBrown text-2xl font-bold">
                 </div>
                 <div class="absolute inset-y-0 right-3 pl-3 flex items-center pointer-events-none">
-                    <svg class="h-5 w-5 text-gray-400" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                    <svg class="h-10 w-10 text-gray-400" fill="none" stroke-linecap="round" stroke-linejoin="round"
                         stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                         <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                     </svg>
                 </div>
             </div>
-            <button id="openAjoute" class="bg-customBrown hover:scale-110 font-bold rounded-3xl w-[40px] h-[40px] ">+</button>
+            <button id="openAjoute" class="text-6xl bg-customBrown hover:scale-110 font-bold rounded-3xl w-[80px] h-[80px] ">+</button>
         </div>
 
         <div class="grid grid-cols-3 gap-[50px]">
             <div>
-                <h2 class="text-6xl font-bold text-customBlue mb-1">To do | <span id="todo-count">0</span></h2>
-                <hr class="border-customBlue mb-6">
+                <h2 class="text-6xl font-bold text-customBlue mb-3">To do | <span id="todo-count">0</span></h2>
+                <hr class="border-customBlue mb-3">
                 <div id="todo-tasks">
                     </div>
             </div>
             <div>
-                <h2 class="text-lg font-bold text-customGreen mb-1">In progress | <span id="inprogress-count">0</span></h2>
+                <h2 class="text-6xl font-bold text-customGreen mb-3">In progress | <span id="inprogress-count">0</span></h2>
                 <hr class="border-customGreen mb-5">
                 <div id="inprogress-tasks">
                     </div>
             </div>
             <div>
-                <h2 class="text-lg font-bold text-customPink mb-1">Done | <span id="done-count">0</span></h2>
+                <h2 class="text-6xl font-bold text-customPink mb-3">Done | <span id="done-count">0</span></h2>
                 <hr class="border-customPink mb-5">
                 <div id="done-tasks">
                     </div>
             </div>
         </div>
     </section>
-    <form id="createTaskPopup" class="absolute top-[100px] left-[100px] w-[400px] flex flex-col bg-customBrown p-8 rounded-3xl hidden ">
-            <div id="closeIcon" class="flex justify-end">
-                <span role="button" class="font-bold cursor-pointer">x</span>
+    <section>
+    <form id="createTaskPopup" class="absolute top-40vw left-20vw w-[800px] h-[950px] flex flex-col gap-[40px] bg-customBrown px-[100px] rounded-3xl hidden ">
+            <div id="closeIcon" class=" flex justify-end">
+                <span role="button" class="text-5xl font-bold cursor-pointer mt-2">x</span>
             </div>
-            <p id="alert" class="hidden text-red-500 text-center py-1">Please fill all the fields.</p>
+            <p id="alert" class="hidden text-2xl text-red-500 text-center py-1">Please fill all the fields.</p>
             
-            <div class="mb-4">
+            <div class="mb-4 text-3xl font-bold">
                 <label for="title">Title:</label>
                 <input type="text" name="title" id="title" 
-                    class="w-full border border-customGray shadow-lg rounded-3xl py-2 pl-2 h-12 focus:outline-none focus:ring-2 focus:ring-black">    
+                    class="w-full border border-customGray shadow-lg rounded-3xl py-2 pl-2 h-[100px] focus:outline-none focus:ring-2 focus:ring-black">    
             </div>
 
-            <div class="mb-4">
+            <div class="mb-4 text-3xl font-bold">
                 <label for="description">Description:</label>
                 <textarea id="description" rows="3"
-                    class="w-full border border-customGray shadow-lg rounded-3xl py-2 pl-2 h-[100px] focus:outline-none focus:ring-2 focus:ring-black"></textarea>
+                    class="w-full border border-customGray shadow-lg rounded-3xl py-2 pl-2 h-[200px] focus:outline-none focus:ring-2 focus:ring-black"></textarea>
             </div>
-            <div class="mb-4">
+            <div class="mb-4 text-2xl font-bold">
                 <label for="title">Date:</label>
                 <input type="date" name="title" id="date" 
                     class="w-full border border-customGray shadow-lg rounded-3xl py-2 pl-2 h-12 focus:outline-none focus:ring-2 focus:ring-black">    
             </div>
 
-            <div class="mb-4">
-                <div class="flex gap-4">
+            <div class="mb-4 ">
+                <div class="flex gap-4 text-3xl font-bold">
                     <div id="priority-menu" class="relative">
-                        <button class="w-[110px] bg-white border border-black rounded-xl px-2 py-1">
+                        <button class="w-[200px]  bg-white h-[70px] border border-black rounded-xl px-2 py-1">
                             Priority
                         </button>
                         <div class="hidden absolute mt-1 w-full bg-white border rounded-lg shadow-lg">
@@ -135,7 +143,7 @@
                         </div>
                     </div>
                     <div id="state-menu" class="relative">
-                        <button class="w-[110px] bg-white border border-black rounded-xl px-2 py-1">
+                        <button class="w-[200px] bg-white h-[70px]  border border-black rounded-xl px-2 py-1">
                             State
                         </button>
                         <div class="hidden absolute mt-1 w-full bg-white border rounded-lg shadow-lg">
@@ -147,7 +155,7 @@
                 </div>
             </div>
 
-            <button class="self-end w-fit px-3 py-2 bg-black text-white rounded-lg hover:bg-white">Save</button>
+            <button class="self-end w-[200px]  px-3 py-[20px] text-3xl bg-black text-white rounded-lg hover:bg-white hover:text-black hover:font-bold letterspacing">Save</button>
         </form>
     
 <script>
@@ -211,7 +219,6 @@
         const title = document.getElementById('title').value;
         const description = document.getElementById('description').value;
         const priority = document.querySelector('#priority-menu button').textContent;
-        const date=document.getElementById('date');
         const state = document.querySelector('#state-menu button').textContent;
         // check if empty 
         if (!title || !description || priority === 'Priority' || state === 'State') {
@@ -219,7 +226,7 @@
             return;
         }
         // if all validated call function create task passing these arguments
-        createTask(title,date, description, priority, state);
+        createTask(title, description, priority, state);
         // createTaskPopup.classList.add('hidden');
         form.reset();
         alert.classList.add('hidden');// alert is hidden now 
@@ -242,11 +249,11 @@
         task.classList.add(borderColor);
     
         task.innerHTML = `
-            <h3 class="font-bold mb-2">${title}</h3>
-            <h6 class="text-8xl mb-3">${description}</h6>
+            <h3 class="text-3xl font-bold mb-2">${title}</h3>
+            <h6 class="text-2xl mb-3">${description}</h6>
             <div class="flex justify-between items-center">
                 <span class="font-bold mb-2">${priority}</span>
-                <select class="text-xs border rounded px-1">
+                <select class="font-bold text-xl border rounded px-1">
                     <option ${state === 'To Do' ? 'selected' : ''}>To Do</option> // selected attribute if state to do is assigned 
                     <option ${state === 'Doing' ? 'selected' : ''}>Doing</option>
                     <option ${state === 'Completed' ? 'selected' : ''}>Completed</option>
