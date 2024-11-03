@@ -9,27 +9,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-    <style>
-        .picture-cover{
-            background-image: url(image/a614b8c617c651ff2832e109ce447de0\ 1.png);
-            background-position: center;
-            background-size: cover;
-            width: 100%;
-            height: 40vh;
-        }
-        
-        
-        .dropdown-menu {
-            max-height: 200px;
-            overflow-y: auto;
-            overflow-x: hidden;
-        }
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <style>        
         .task {
             border-radius: .5rem;
             border: 1px solid #CFC099;
             border-left-width: 7.5px;
             padding: .75rem 1rem;
             margin-bottom: 1.3rem;
+            cursor: pointer;
+            animation: fadeIn 0.5s ease forwards;
+            
 
             & h6 {
                 color: rgba(0, 0, 0, .7);
@@ -45,28 +35,49 @@
         .border-green {
             border-left-color: green; /* P3 */
         }
-        .w-fit {
-            width: fit-content;
-        }
-
-        body {
-            position: relative;
-            min-height: 100vh;
-        }
-        .left-20vw {
-            left: 37vw;
-        }
-        .top-40vw {
-            top: 10vw;
-        }
         .letterspacing{
             letter-spacing: 2px;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
 
 <body class="relative bg-customCream px-4 lg:px-24">
-    <section>
+    <section class="bg-customCream">
+        <div class="flex justify-between items-center px-4">
+            <a href="#">
+                <img src="image/a_simple__fun__and_creative_to-do_list_logo_with_the_colors_customCream___E6E6DC__customGray___908787__customBrown___CFC099__customGreen___6BB5B3-removebg-preview.png" class="max-w-full h-auto w-28" alt="logo">
+            </a>
+            <div class="block lg:hidden">
+                <button id="menu-button" class="text-gray-500 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="hidden lg:flex space-x-16">
+                <a href="#" class="font-semibold lg:text-3xl hover:text-customDarkBrown">Espace travail</a>
+                <a href="#" class="font-semibold  lg:text-3xl hover:text-customDarkBrown">Récent</a>
+                <a href="#" class="font-semibold  lg:text-3xl hover:text-customDarkBrown">Favoris</a>
+                <a href="#" class="font-semibold  lg:text-3xl hover:text-customDarkBrown">Modéle</a>
+                <a href="#" class="font-semibold text-xl md:text-2xl lg:text-3xl border rounded-3xl px-5 hover:bg-customDarkBrown hover:scale-110 transition">Créer</a>
+            </div>
+        </div>
+        <div id="menu" class="lg:hidden hidden flex-col space-y-2 bg-white px-4 py-2 space-x-8">
+            <a href="#" class="text-gray-700 hover:text-customDarkBrown">Espace travail</a>
+            <a href="#" class="text-gray-700 hover:text-customDarkBrown">Récent</a>
+            <a href="#" class="text-gray-700 hover:text-customDarkBrown">Favoris</a>
+            <a href="#" class="text-gray-700 hover:text-customDarkBrown">Modéle</a>
+        </div>
         
     </section>
 
@@ -92,25 +103,25 @@
             <div>
                 <h2 class="text-3xl md:text-4xl font-bold text-customBlue mb-3">To do | <span id="todo-count">0</span></h2>
                 <hr class="border-customBlue mb-3">
-                <div id="todo-tasks">
+                <div id="todo-tasks" class="task-container" ondrop="drop(event)" ondragover="allowDrop(event)">
                     </div>
             </div>
             <div>
                 <h2 class="text-3xl md:text-4xl font-bold text-customGreen mb-3">In progress|<span id="inprogress-count">0</span></h2>
                 <hr class="border-customGreen mb-5">
-                <div id="inprogress-tasks">
+                <div id="inprogress-tasks"  class="task-container" ondrop="drop(event)" ondragover="allowDrop(event)">
                     </div>
             </div>
             <div>
                 <h2 class="text-3xl md:text-4xl font-bold text-customPink mb-3">Done | <span id="done-count">0</span></h2>
                 <hr class="border-customPink mb-5">
-                <div id="done-tasks">
+                <div id="done-tasks" class="task-container" ondrop="drop(event)" ondragover="allowDrop(event)">
                     </div>
             </div>
         </div>
     </section>
-    <section>
-    <form id="createTaskPopup" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  flex flex-col gap-5 bg-customBrown p-8 rounded-3xl hidden z-10">
+    
+    <form id="createTaskPopup" class="absolute md:top-1/2 lg:top-2/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2  flex flex-col gap-2 bg-customBrown p-8 rounded-3xl hidden z-10">
             <div id="closeIcon" class=" flex justify-end">
                 <span role="button" class="text-5xl font-bold cursor-pointer mt-2">x</span>
             </div>
@@ -121,22 +132,31 @@
                 <input type="text" name="title" id="title" 
                     class="w-full border border-customGray shadow-lg rounded-3xl py-2 pl-2 h-[50px] focus:outline-none focus:ring-2 focus:ring-black">    
             </div>
-
+            
             <div class="mb-4 text-2xl font-semibold">
                 <label for="description">Description:</label>
                 <textarea id="description" rows="3"
                     class="w-full border border-customGray shadow-lg rounded-3xl py-2 pl-2 h-[200px] focus:outline-none focus:ring-2 focus:ring-black"></textarea>
             </div>
+            <div class="flex gap-4 text-2xl font-semibold">
             <div class="mb-4 text-xl font-semibold">
-                <label for="title">Date:</label>
-                <input type="date" name="title" id="date" 
-                    class="w-full border border-customGray shadow-lg rounded-3xl py-2 pl-2 h-12 focus:outline-none focus:ring-2 focus:ring-black">    
+                
+                    <label for="date">Date:</label>
+                    <input type="date" name="title" id="date" 
+                        class=" border border-customGray shadow-lg rounded-3xl py-2 pl-2 h-12 focus:outline-none focus:ring-2 focus:ring-black">    
+                </div>
+                <div class="mb-4 text-xl font-semibold">
+                
+                    <label for="time">Time:</label>
+                    <input type="time" name="title" id="time" 
+                        class=" border border-customGray shadow-lg rounded-3xl py-2 pl-2 h-12 focus:outline-none focus:ring-2 focus:ring-black">    
+                </div>
             </div>
 
             <div class="mb-4 ">
                 <div class="flex gap-4 text-2xl font-semibold">
                     <div id="priority-menu" class="relative">
-                        <button class="w-full  bg-white h-[70px] border border-black rounded-xl px-2 py-1">
+                        <button class="w-[100px]  bg-white h-[70px] border border-black rounded-xl px-2 py-1">
                             Priority
                         </button>
                         <div class="hidden absolute mt-1 w-full bg-white border rounded-lg shadow-lg">
@@ -159,7 +179,89 @@
             </div>
 
             <button class="self-end w-full max-w-xs px-3 py-[20px] text-2xl bg-black text-white rounded-3xl hover:bg-white hover:text-black hover:font-bold letterspacing">Save</button>
-        </form>
+    </form>
+    
+    
+    <footer class="relative bg-customCream">
+        <div class="absolute inset-0 bg-cover bg-center " style="background-image: url('image/__.jpeg');">
+            <div class="absolute inset-0 backdrop-blur-sm bg-black bg-opacity-30"></div>
+        </div>
+        <!-- top footer -->
+        <section class="relative z-5 flex flex-col md:flex-row items-center justify-between px-8 md:px-40 mb-5">
+            <img src="image/a_simple__fun__and_creative_to-do_list_logo_with_the_colors_customCream___E6E6DC__customGray___908787__customBrown___CFC099__customGreen___6BB5B3-removebg-preview.png" width="100" height="auto" alt="logo" />
+            <div class="text-customDarkBrown">
+                <h3 class="text-lg font-semibold">Follow us</h3>
+                <div class="flex space-x-4">
+                    <a href="#"><i class='bx bxl-facebook-circle'></i></a>
+                    <a href="#"><i class='bx bxl-pinterest'></i></a>
+                    <a href="#"><i class='bx bxl-whatsapp'></i></a>
+                    <a href="#"><i class='bx bxl-instagram-alt'></i></a>
+                </div>
+            </div>
+        </section>
+        <div class="px-10">
+            <hr class="border-t border-customDarkBrown opacity-80">
+        </div>
+    
+        <!-- footer-body -->
+        <section class="relative z-5  flex flex-col md:flex-row justify-between gap-10 sm:gap-20 px-14 py-10">
+            <div class="flex flex-col sm:flex-row gap-10 md:gap-20 w-full">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-3 text-customDarkBrown">BLOC</h3>
+                    <div>
+                        <div><a href="#" class="text-gray-700 hover:text-customDarkBrown">Home</a></div>
+                        <div><a href="#" class="text-gray-700 hover:text-customDarkBrown">Favoris</a></div>
+                        <div><a href="#" class="text-gray-700 hover:text-customDarkBrown">Modéles</a></div>
+                        <div><a href="#" class="text-gray-700 hover:text-customDarkBrown">Services</a></div>
+                        <div><a href="#" class="text-gray-700 hover:text-customDarkBrown">Espace travail</a></div>
+                        <div><a href="#" class="text-gray-700 hover:text-customDarkBrown">More</a></div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-semibold mb-3 text-customDarkBrown">ABOUT-US</h3>
+                    <div>
+                        <p>(123) 456-7891</p>
+                        <a href="#" class="text-gray-700 hover:text-customDarkBrown">taskFlow@gmail.co</a>
+                        <p>Hay jerifate, Safi, Bouzid</p>
+                        <div><a href="#" class="text-gray-700 hover:text-customDarkBrown">Company</a></div>
+                        <div><a href="#" class="text-gray-700 hover:text-customDarkBrown">Careers</a></div>
+                        <div><a href="#" class="text-gray-700 hover:text-customDarkBrown">Community</a></div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="flex flex-col sm:flex-row gap-10 md:gap-10 sm:gap-4 w-full">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-3 text-customDarkBrown">PRODUCTS</h3>
+                    <div>
+                        <p>Acess apps</p>
+                        <a href="#" class="text-gray-700 hover:text-customDarkBrown">taskFlow@gmail.co</a>
+                        <p>Dreaming Desktop</p>
+                        <p>On the clouds</p>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-semibold mb-3 text-customDarkBrown">SHOP</h3>
+                    <div>
+                        <div><a href="#" class="text-gray-700 hover:text-customDarkBrown">Contact us</a></div>
+                        <p>Subscribe</p>
+                        <div><a href="#" class="text-gray-700 hover:text-customDarkBrown">Profil</a></div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </section>
+        <section class="px-10">
+            <hr class="border-t border-customDarkBrown opacity-80">
+        </section>
+    
+        <!-- footer-bottom -->
+        <section class="text-center py-10">
+            <p class="relative z-5 text-lg text-gray-700 font-semibold">© 2024 Codebenders. All rights reserved.</p>
+        </section>
+    </footer>
+
     
 <script>
     // DOM Elements
@@ -216,9 +318,9 @@
     });
     
     // Form submission 
-    form.addEventListener('submit', (e) => {// listens for submit event, when the form is submitted, if input fields r valid, calls function to create new task 
+    form.addEventListener('submit', (e) => {// listens for submit event, when the form is submitted, if input fields r valid, calls function to create new tas
         e.preventDefault();// prevent page relod 
-        // retrieve form values 
+        // retrieve form values saisies dans le formulaire
         const title = document.getElementById('title').value;
         const description = document.getElementById('description').value;
         const priority = document.querySelector('#priority-menu button').textContent;
@@ -277,6 +379,7 @@
         updateCounts(); // add count 
     
         // lists to changes and handles them by moving tasks to their corresponding status
+        // changement de statut
         const select = task.querySelector('select');// select drop down menu 
         select.addEventListener('change', () => {// event chenge triggered when the user selects a different option from the dropdown 
             const newContainer = {// similar to last one 
@@ -288,13 +391,10 @@
             newContainer.appendChild(task);
             updateCounts();
         });
-        function drag(ev){
-            ev.dataTransfer.setData("")
-        }
     }
     
     function updateCounts() {
-        todoCount.textContent = todoTasks.children.length;// accesses all tasks marked as to do and retrieves the number of child elemnts and displays them
+        todoCount.textContent = todoTasks.children.length;// accesses all tasks marked as to do and retrieves the number of child elemnts and displays them=retourne une collection en direct (HTMLCollection)
         inprogressCount.textContent = inprogressTasks.children.length;// counting tasks in progress 
         doneCount.textContent = doneTasks.children.length;// similar 
     }
@@ -331,6 +431,14 @@
                 task.style.display = 'none';
             }
         });
+    });
+
+    // manage menu burger 
+    const menuButton = document.getElementById('menu-button');
+    const menu = document.getElementById('menu');
+
+    menuButton.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
     });
     </script>
     
